@@ -1,11 +1,10 @@
 package simdfloats
 
 func (x Float64x8) ToSlice() []float64 {
-	var result [8]float64
+	result := make([]float64, 8)
+	x.Store(result)
 
-	x.Store(result[:])
-
-	return result[:]
+	return result
 }
 
 // NewFloat64x8Slice takes the given data and transfer them in a simd layout,
