@@ -5,7 +5,7 @@ package simdfloats
 import "math"
 
 type Float64x8 struct {
-	data [8]float64
+	data [float64_x8_len]float64
 }
 
 func NewFloat64x8(data []float64) Float64x8 {

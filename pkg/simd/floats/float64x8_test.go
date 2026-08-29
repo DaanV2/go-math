@@ -51,6 +51,12 @@ func Test_Float64x8_Ops(t *testing.T) {
 		assert.Equal(t, []float64{9, 20, 33, 48, 65, 84, 105, 128}, result.ToSlice())
 	})
 
+	t.Run("Neg", func(t *testing.T) {
+		result := vec1.Neg()
+
+		assert.Equal(t, []float64{-1, -2, -3, -4, -5, -6, -7, -8}, result.ToSlice())
+	})
+
 	t.Run("MulAdd", func(t *testing.T) {
 		result := vec1.MulAdd(vec2, vec3)
 
@@ -93,6 +99,12 @@ func Test_Float64x8_Ops(t *testing.T) {
 		result := vec1.Scale(exponents)
 
 		assert.Equal(t, []float64{2, 2, 12, 8, 5, 48, 14, 8}, result.ToSlice())
+	})
+
+	t.Run("Sqrt", func(t *testing.T) {
+		result := vec1.Sqrt()
+
+		assert.Equal(t, []float64{1, 1.4142135623730951, 1.7320508075688772, 2, 2.23606797749979, 2.449489742783178, 2.6457513110645907, 2.8284271247461903}, result.ToSlice())
 	})
 }
 

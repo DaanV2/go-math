@@ -15,7 +15,7 @@ func NewFloat64x8(data []float64) Float64x8 {
 	var n int
 	result.data0, n = archsimd.LoadFloat64x4Part(data)
 	if n == 4 { // Read atleast 4 points, so there should be more
-		result.data1, _ = archsimd.LoadFloat64x4Part(data[4:])
+		result.data1, _ = archsimd.LoadFloat64x4Part(data[(float64_x8_len / 2):])
 	}
 
 	return result
@@ -23,12 +23,12 @@ func NewFloat64x8(data []float64) Float64x8 {
 
 func (x Float64x8) Store(receiver []float64) {
 	switch {
-	case len(receiver) == 8:
-		x.data0.Store(receiver[:4])
-		x.data1.Store(receiver[4:])
-	case len(receiver) > 4:
-		x.data0.Store(receiver[:4])
-		_ = x.data1.StorePart(receiver[4:])
+	case len(receiver) == float64_x8_len:
+		x.data0.Store(receiver[:(float64_x8_len / 2)])
+		x.data1.Store(receiver[(float64_x8_len / 2):])
+	case len(receiver) > (float64_x8_len / 2):
+		x.data0.Store(receiver[:(float64_x8_len / 2)])
+		_ = x.data1.StorePart(receiver[(float64_x8_len / 2):])
 	default:
 		_ = x.data0.StorePart(receiver)
 	}
