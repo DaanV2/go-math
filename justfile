@@ -1,4 +1,4 @@
-# ASSEMBLY: go build -gcflags="-S" ./pkg/collections > cmd.S 2>&1
+# ASSEMBLY: go build -tags simd_avx512 -gcflags="-S" ./pkg/collections > cmd.S 2>&1
 set windows-shell := ["powershell.exe", "-c"]
 
 export GOEXPERIMENT := 'simd'
@@ -32,8 +32,13 @@ generate:
 
 [group('checks')]
 lint:
-    go tool golangci-lint run -v --fix
+    golangci-lint run -v --fix --show-stats
+    golangci-lint run -v --fix --show-stats --build-tags simd_none
+    golangci-lint run -v --fix --show-stats --build-tags simd_detect
+    golangci-lint run -v --fix --show-stats --build-tags simd_avx256
+    golangci-lint run -v --fix --show-stats --build-tags simd_avx512
 
+alias fmt := format
 [group('checks')]
 format:
     go fmt ./...
@@ -41,3 +46,7 @@ format:
 [group('checks')]
 fix:
     go fix ./...
+    go fix -tags simd_none ./...
+    go fix -tags simd_detect ./...
+    go fix -tags simd_avx256 ./...
+    go fix -tags simd_avx512 ./...
