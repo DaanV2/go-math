@@ -1,5 +1,13 @@
 package simdfloats
 
+func (v Float64x8) ToSlice() []float64 {
+	var result [8]float64
+
+	v.Store(result[:])
+
+	return result[:]
+}
+
 // NewFloat64x8Slice takes the given data and transfer them in a simd layout,
 // element n0, n1 ... n7 are taken a stored in the first [Float64x8], next 8 elements in the next [Float64x8] etc.
 // If not multiple of 8, the last few numbers are put into the last lowest [Float64x8], with the rest padded to 0

@@ -16,12 +16,8 @@ func NewFloat64x8(data []float64) Float64x8 {
 	return result
 }
 
-func (v Float64x8) ToSlice() []float64 {
-	var result [8]float64
-
-	v.data.Store(result[:])
-
-	return result[:]
+func (v Float64x8) Store(receiver []float64) {
+	v.data.StorePart(receiver)
 }
 
 func (v Float64x8) Add(other Float64x8) Float64x8 {
