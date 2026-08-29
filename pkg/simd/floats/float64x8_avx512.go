@@ -11,11 +11,7 @@ type Float64x8 struct {
 func NewFloat64x8(data []float64) Float64x8 {
 	var result Float64x8
 
-	var n int
-	result.data0, n = archsimd.LoadFloat64x8Part(data)
-	if len(n) == 8 { // Read atleast 8 points, so there should be more
-		result.data1, _ = archsimd.LoadFloat64x8Part(data[8:])
-	}
+	result.data, _ = archsimd.LoadFloat64x8Part(data)
 
 	return result
 }
