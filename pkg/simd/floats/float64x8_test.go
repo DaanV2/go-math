@@ -86,6 +86,14 @@ func Test_Float64x8_Ops(t *testing.T) {
 
 		assert.Equal(t, []float64{-8, -8, -8, -8, -8, -8, -8, -8}, result.ToSlice())
 	})
+
+	t.Run("Scale", func(t *testing.T) {
+		exponents := simdfloats.NewFloat64x8([]float64{1, 0, 2, 1, 0, 3, 1, 0})
+
+		result := vec1.Scale(exponents)
+
+		assert.Equal(t, []float64{2, 2, 12, 8, 5, 48, 14, 8}, result.ToSlice())
+	})
 }
 
 // Loads

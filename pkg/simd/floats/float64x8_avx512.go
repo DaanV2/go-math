@@ -34,7 +34,7 @@ func (v Float64x8) Add(other Float64x8) Float64x8 {
 	}
 }
 
-// Abs returns the absolute values of the elements of x
+// Div performs a fused: x / y.
 func (x Float64x8) Div(y Float64x8) Float64x8 {
 	return Float64x8{
 		data: x.data.Div(y.data),

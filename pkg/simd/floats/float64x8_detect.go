@@ -75,7 +75,7 @@ func (x Float64x8) Add(y Float64x8) Float64x8 { // nolint:dupl // keep the dupli
 	return result
 }
 
-// Abs returns the absolute values of the elements of x
+// Div performs a fused: x / y.
 func (x Float64x8) Div(y Float64x8) Float64x8 { // nolint:dupl // keep the duplicate code
 	var result Float64x8
 
@@ -140,19 +140,19 @@ func (x Float64x8) MulAdd(y, z Float64x8) Float64x8 {
 		v1 := archsimd.LoadFloat64x8(x.data[:])
 		v2 := archsimd.LoadFloat64x8(y.data[:])
 		v3 := archsimd.LoadFloat64x8(z.data[:])
-		v1.Mul(v2).Add(v3).Store(result.data[:])
+		v1.MulAdd(v2, v3).Store(result.data[:])
 	case xruntime.AVX256():
 		// First 4
 		v1 := archsimd.LoadFloat64x4(x.data[:4])
 		v2 := archsimd.LoadFloat64x4(y.data[:4])
 		v3 := archsimd.LoadFloat64x4(z.data[:4])
-		v1.Mul(v2).Add(v3).Store(result.data[:4])
+		v1.MulAdd(v2, v3).Store(result.data[:4])
 
 		// Last 4
 		v1 = archsimd.LoadFloat64x4(x.data[4:])
 		v2 = archsimd.LoadFloat64x4(y.data[4:])
 		v3 = archsimd.LoadFloat64x4(z.data[4:])
-		v1.Mul(v2).Add(v3).Store(result.data[4:])
+		v1.MulAdd(v2, v3).Store(result.data[4:])
 	default:
 		for i := range x.data {
 			result.data[i] = (x.data[i] * y.data[i]) + z.data[i]
@@ -261,7 +261,7 @@ func (x Float64x8) Scale(y Float64x8) Float64x8 { // nolint:dupl // keep the dup
 		v1.Scale(v2).Store(result.data[4:])
 	default:
 		for i := range x.data {
-			result.data[i] = max(x.data[i], y.data[i])
+			result.data[i] = x.data[i] * math.Pow(2, y.data[i])
 		}
 	}
 
@@ -289,7 +289,7 @@ func (x Float64x8) Sub(y Float64x8) Float64x8 { // nolint:dupl // keep the dupli
 		v1.Sub(v2).Store(result.data[4:])
 	default:
 		for i := range x.data {
-			result.data[i] = max(x.data[i], y.data[i])
+			result.data[i] = x.data[i] - y.data[i]
 		}
 	}
 
