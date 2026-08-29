@@ -2,6 +2,8 @@
 
 ## Building with SIMD build tags
 
+> [!NOTE]: this also require the GOEXPERIMENT=simd
+
 This library can be accelerated with SIMD (AVX-512, AVX2/256, or a scalar
 fallback). By default it auto-detects the best available instruction set at
 runtime (equivalent to `simd_detect`). You can override this at compile time

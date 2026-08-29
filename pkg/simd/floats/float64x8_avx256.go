@@ -29,3 +29,10 @@ func (v Float64x8) ToSlice() []float64 {
 
 	return result[:]
 }
+
+func (v Float64x8) Add(other Float64x8) Float64x8 {
+	return Float64x8{
+		data0: v.data0.Add(other.data0),
+		data1: v.data1.Add(other.data1),
+	}
+}
