@@ -23,7 +23,7 @@ func (x Float64x8) Store(receiver []float64) {
 	copy(receiver, x.data[:])
 }
 
-func (x Float64x8) Add(y Float64x8) Float64x8 {
+func (x Float64x8) Add(y Float64x8) Float64x8 { // nolint:dupl // keep the duplicate code
 	var result Float64x8
 
 	switch {
@@ -51,7 +51,7 @@ func (x Float64x8) Add(y Float64x8) Float64x8 {
 }
 
 // Sub performs a fused: x - y.
-func (x Float64x8) Sub(y Float64x8) Float64x8 {
+func (x Float64x8) Sub(y Float64x8) Float64x8 { // nolint:dupl // keep the duplicate code
 	var result Float64x8
 
 	switch {
@@ -79,7 +79,7 @@ func (x Float64x8) Sub(y Float64x8) Float64x8 {
 }
 
 // Mul performs a fused: x * y.
-func (x Float64x8) Mul(y Float64x8) Float64x8 {
+func (x Float64x8) Mul(y Float64x8) Float64x8 { // nolint:dupl // keep the duplicate code
 	var result Float64x8
 
 	switch {

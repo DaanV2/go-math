@@ -14,7 +14,7 @@ func NewFloat64x8(data []float64) Float64x8 {
 }
 
 func (v Float64x8) Store(receiver []float64) {
-	copy(receiver[:], v.data[:])
+	copy(receiver, v.data[:])
 }
 
 func (x Float64x8) Add(y Float64x8) Float64x8 {
@@ -50,7 +50,7 @@ func (x Float64x8) Mul(y Float64x8) Float64x8 {
 }
 
 // MulAdd performs a fused: (x * y) + z.
-func (x Float64x8) MulAdd(y Float64x8, z Float64x8) Float64x8 {
+func (x Float64x8) MulAdd(y, z Float64x8) Float64x8 {
 	var result Float64x8
 
 	for i := range x.data {

@@ -41,7 +41,7 @@ func (x Float64x8) Mul(y Float64x8) Float64x8 {
 }
 
 // MulAdd performs a fused: (x * y) + z.
-func (x Float64x8) MulAdd(y Float64x8, z Float64x8) Float64x8 {
+func (x Float64x8) MulAdd(y, z Float64x8) Float64x8 {
 	return Float64x8{
 		data: x.data.MulAdd(y.data, z.data),
 	}

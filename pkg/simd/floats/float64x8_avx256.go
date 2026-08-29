@@ -22,13 +22,14 @@ func NewFloat64x8(data []float64) Float64x8 {
 }
 
 func (x Float64x8) Store(receiver []float64) {
-	if len(receiver) == 8 {
+	switch {
+	case len(receiver) == 8:
 		x.data0.Store(receiver[:4])
 		x.data1.Store(receiver[4:])
-	} else if len(receiver) > 4 {
+	case len(receiver) > 4:
 		x.data0.Store(receiver[:4])
 		_ = x.data1.StorePart(receiver[4:])
-	} else {
+	default:
 		_ = x.data0.StorePart(receiver)
 	}
 }
@@ -58,7 +59,7 @@ func (x Float64x8) Mul(y Float64x8) Float64x8 {
 }
 
 // MulAdd performs a fused: (x * y) + z.
-func (x Float64x8) MulAdd(y Float64x8, z Float64x8) Float64x8 {
+func (x Float64x8) MulAdd(y, z Float64x8) Float64x8 {
 	return Float64x8{
 		data0: x.data0.MulAdd(y.data0, z.data0),
 		data1: x.data1.MulAdd(y.data1, z.data1),
