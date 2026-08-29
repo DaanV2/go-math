@@ -24,7 +24,7 @@ func (x Float64x8) Abs() Float64x8 {
 	var result Float64x8
 
 	for i := range x.data {
-		result.data[i] = math.Abs(result.data[i])
+		result.data[i] = math.Abs(x.data[i])
 	}
 
 	return result
