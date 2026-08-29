@@ -1,4 +1,4 @@
-//go:build simd_none
+//go:build simd_none || (!simd_avx512 && !simd_avx256)
 
 package simdfloats
 

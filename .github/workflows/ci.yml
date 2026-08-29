@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tags: [simd_detect, simd_avx256, simd_avx512, simd_none]
+        tags: [simd_avx256, simd_avx512, simd_none]
     steps:
       - name: Checkout
         uses: actions/checkout@v7
