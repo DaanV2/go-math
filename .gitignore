@@ -1,0 +1,14 @@
+*.o
+*.exe
+*.S
+*.test
+reports
+*.pprof
+*.out
+data/todo/*
+
+.chess
+go-chess
+
+/build
+/desktop/frontend/src/lib/wailsjs

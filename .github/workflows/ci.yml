@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  GOEXPERIMENT: simd
+
+jobs:
+  # Compiling never executes vector instructions, so every tag builds
+  # successfully regardless of the runner's actual CPU features. Running
+  # actually executes them, so only tags whose instruction set is reliably
+  # present on GitHub-hosted runners are also tested here (AVX-512 is not —
+  # see the avx512 job below).
+  build-and-test:
+    name: build-and-test (${{ matrix.tags }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        tags: [simd_detect, simd_avx256, simd_avx512, simd_none]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Build
+        run: go build -tags ${{ matrix.tags }} ./...
+
+      - name: Test
+        if: matrix.tags != 'simd_avx512'
+        run: go test -tags ${{ matrix.tags }} ./... --cover
+
+  # GitHub-hosted runners inconsistently expose AVX-512 to the guest VM
+  # (many Azure SKUs mask it even when the host CPU supports it), so this
+  # job is best-effort: it skips itself when the runner has no AVX-512, and
+  # is allowed to fail rather than block CI when it does run.
+  test-avx512:
+    name: test-avx512
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Check for AVX-512 support
+        id: cpu
+        run: |
+          if grep -qm1 avx512 /proc/cpuinfo; then
+            echo "has_avx512=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_avx512=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Test simd_avx512
+        if: steps.cpu.outputs.has_avx512 == 'true'
+        run: go test -tags simd_avx512 ./... --cover
+
+      - name: Skip (no AVX-512 on this runner)
+        if: steps.cpu.outputs.has_avx512 == 'false'
+        run: echo "Runner has no AVX-512; skipping execution."
