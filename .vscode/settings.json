@@ -16,7 +16,11 @@
     "go.delveConfig": {
         "showRegisters": true
     },
+    "go.buildTags": "simd_avx256",
     "gopls": {
+        "build.env": {
+            "GOEXPERIMENT": "simd",
+        },
         "ui.semanticTokens": true,
         "ui.codelenses": {
             "gc_details": true,
