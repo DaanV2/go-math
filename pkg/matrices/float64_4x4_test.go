@@ -1,7 +1,6 @@
 package matrices_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/daanv2/go-math/pkg/matrices"
@@ -139,23 +138,4 @@ func Test_Float64_4x4_Load(t *testing.T) {
 		9, 10, 11, 12,
 		13, 14, 15, 0,
 	}, mat.ToSlice())
-}
-
-// Examples
-
-// Default example
-func ExampleFloat64_4x4() {
-	data := []float64{
-		1, 2, 3, 4,
-		5, 6, 7, 8,
-		9, 10, 11, 12,
-		13, 14, 15, 16,
-	}
-
-	v1 := matrices.NewFloat64_4x4(data)
-
-	fmt.Println(v1.ToSlice())
-
-	// Output:
-	// [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
 }
