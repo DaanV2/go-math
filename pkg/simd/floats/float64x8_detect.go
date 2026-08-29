@@ -76,7 +76,7 @@ func (x Float64x8) Add(y Float64x8) Float64x8 { // nolint:dupl // keep the dupli
 }
 
 // Abs returns the absolute values of the elements of x
-func (x Float64x8) Div(y Float64x8) Float64x8 {
+func (x Float64x8) Div(y Float64x8) Float64x8 { // nolint:dupl // keep the duplicate code
 	var result Float64x8
 
 	switch {
@@ -163,7 +163,7 @@ func (x Float64x8) MulAdd(y, z Float64x8) Float64x8 {
 }
 
 // Max computes the maximum of each pair of corresponding elements in x and y.
-func (x Float64x8) Max(y Float64x8) Float64x8 {
+func (x Float64x8) Max(y Float64x8) Float64x8 { // nolint:dupl // keep the duplicate code
 	var result Float64x8
 
 	switch {
@@ -191,7 +191,7 @@ func (x Float64x8) Max(y Float64x8) Float64x8 {
 }
 
 // Min computes the minimum of each pair of corresponding elements in x and y.
-func (x Float64x8) Min(y Float64x8) Float64x8 {
+func (x Float64x8) Min(y Float64x8) Float64x8 { // nolint:dupl // keep the duplicate code
 	var result Float64x8
 
 	switch {
@@ -241,7 +241,7 @@ func (x Float64x8) Neg() Float64x8 {
 }
 
 // Scale multiplies each element of x by 2 raised to the power of the floor of the corresponding element in y.
-func (x Float64x8) Scale(y Float64x8) Float64x8 {
+func (x Float64x8) Scale(y Float64x8) Float64x8 { // nolint:dupl // keep the duplicate code
 	var result Float64x8
 
 	switch {
