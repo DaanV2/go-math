@@ -2,7 +2,10 @@
 
 package simdfloats
 
-import "simd/archsimd"
+import (
+	"math"
+	"simd/archsimd"
+)
 
 type Float64x8 struct {
 	data0 archsimd.Float64x4
@@ -100,10 +103,18 @@ func (x Float64x8) Neg() Float64x8 {
 
 // Scale multiplies each element of x by 2 raised to the power of the floor of the corresponding element in y.
 func (x Float64x8) Scale(y Float64x8) Float64x8 {
-	return Float64x8{
-		data0: x.data0.Scale(y.data0),
-		data1: x.data1.Scale(y.data1),
+	var result [float64_x8_len]float64
+	var vx [float64_x8_len]float64
+	var vy [float64_x8_len]float64
+
+	x.Store(vx[:])
+	y.Store(vy[:])
+
+	for i := range vx {
+		result[i] = vx[i] * math.Pow(2, vy[i])
 	}
+
+	return NewFloat64x8(result[:])
 }
 
 // Sub performs a fused: x - y.
