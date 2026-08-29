@@ -1,9 +1,9 @@
 package simdfloats
 
-func (v Float64x8) ToSlice() []float64 {
+func (x Float64x8) ToSlice() []float64 {
 	var result [8]float64
 
-	v.Store(result[:])
+	x.Store(result[:])
 
 	return result[:]
 }
@@ -19,10 +19,15 @@ func NewFloat64x8Slice(data []float64) []Float64x8 {
 
 	result := make([]Float64x8, 0, l)
 
-	for len(data) > 8 {
+	for len(data) > 0 {
 		v := NewFloat64x8(data)
 		result = append(result, v)
-		data = data[8:]
+
+		if len(data) >= 8 {
+			data = data[8:]
+		} else {
+			data = nil
+		}
 	}
 
 	return result

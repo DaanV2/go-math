@@ -21,21 +21,46 @@ func NewFloat64x8(data []float64) Float64x8 {
 	return result
 }
 
-func (v Float64x8) Store(receiver []float64) {
+func (x Float64x8) Store(receiver []float64) {
 	if len(receiver) == 8 {
-		v.data0.Store(receiver[:4])
-		v.data1.Store(receiver[4:])
+		x.data0.Store(receiver[:4])
+		x.data1.Store(receiver[4:])
 	} else if len(receiver) > 4 {
-		v.data0.Store(receiver[:4])
-		_ = v.data1.StorePart(receiver[4:])
+		x.data0.Store(receiver[:4])
+		_ = x.data1.StorePart(receiver[4:])
 	} else {
-		_ = v.data0.StorePart(receiver)
+		_ = x.data0.StorePart(receiver)
 	}
 }
 
-func (v Float64x8) Add(other Float64x8) Float64x8 {
+// Add performs a fused: x + y.
+func (x Float64x8) Add(y Float64x8) Float64x8 {
 	return Float64x8{
-		data0: v.data0.Add(other.data0),
-		data1: v.data1.Add(other.data1),
+		data0: x.data0.Add(y.data0),
+		data1: x.data1.Add(y.data1),
+	}
+}
+
+// Sub performs a fused: x - y.
+func (x Float64x8) Sub(y Float64x8) Float64x8 {
+	return Float64x8{
+		data0: x.data0.Sub(y.data0),
+		data1: x.data1.Sub(y.data1),
+	}
+}
+
+// Mul performs a fused: x * y.
+func (x Float64x8) Mul(y Float64x8) Float64x8 {
+	return Float64x8{
+		data0: x.data0.Mul(y.data0),
+		data1: x.data1.Mul(y.data1),
+	}
+}
+
+// MulAdd performs a fused: (x * y) + z.
+func (x Float64x8) MulAdd(y Float64x8, z Float64x8) Float64x8 {
+	return Float64x8{
+		data0: x.data0.MulAdd(y.data0, z.data0),
+		data1: x.data1.MulAdd(y.data1, z.data1),
 	}
 }
