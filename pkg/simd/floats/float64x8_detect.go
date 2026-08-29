@@ -26,11 +26,12 @@ func (v Float64x8) ToSlice() []float64 {
 func (v Float64x8) Add(other Float64x8) Float64x8 {
 	var result Float64x8
 
-	if xruntime.AVX512() {
+	switch {
+	case xruntime.AVX512():
 		v1 := archsimd.LoadFloat64x8(v.data[:])
 		v2 := archsimd.LoadFloat64x8(other.data[:])
 		v1.Add(v2).Store(result.data[:])
-	} else if xruntime.AVX256() {
+	case xruntime.AVX256():
 		// First 4
 		v1 := archsimd.LoadFloat64x4(v.data[:4])
 		v2 := archsimd.LoadFloat64x4(other.data[:4])
@@ -40,7 +41,7 @@ func (v Float64x8) Add(other Float64x8) Float64x8 {
 		v1 = archsimd.LoadFloat64x4(v.data[4:])
 		v2 = archsimd.LoadFloat64x4(other.data[4:])
 		v1.Add(v2).Store(result.data[4:])
-	} else {
+	default:
 		for i := range v.data {
 			result.data[i] = v.data[i] + other.data[i]
 		}

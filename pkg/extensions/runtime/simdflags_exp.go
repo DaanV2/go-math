@@ -1,4 +1,4 @@
-//go:build goexperiment.simd && (!simd_avx512 || !simd_avx256)
+//go:build goexperiment.simd && !simd_avx512 && !simd_avx256
 
 package xruntime
 

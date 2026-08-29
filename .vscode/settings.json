@@ -16,7 +16,7 @@
     "go.delveConfig": {
         "showRegisters": true
     },
-    "go.buildTags": "simd_detect",
+    "go.buildTags": "simd_avx256",
     "gopls": {
         "build.env": {
             "GOEXPERIMENT": "simd",
