@@ -34,7 +34,15 @@ func Test_Float64x8_Ops(t *testing.T) {
 	t.Run("Div", func(t *testing.T) {
 		result := vec1.Div(vec2)
 
-		assert.Equal(t, []float64{1, 2, 3, 4, 5, 6, 7, 8}, result.ToSlice())
+		assert.Equal(t, []float64{
+			0.1111111111111111,
+			0.2,
+			0.2727272727272727,
+			0.3333333333333333,
+			0.38461538461538464,
+			0.42857142857142855,
+			0.4666666666666667,
+			0.5}, result.ToSlice())
 	})
 
 	t.Run("Mul", func(t *testing.T) {
