@@ -20,8 +20,9 @@ func NewFloat64x8(data []float64) Float64x8 {
 	return result
 }
 
+// Store copies over the items from x to receiver, only copies the amount of items equal to either the min of receiver or this [Float64x8]
 func (x Float64x8) Store(receiver []float64) {
-	copy(receiver, x.data[:])
+	_ = copy(receiver, x.data[:])
 }
 
 // Abs returns the absolute values of the elements of x
