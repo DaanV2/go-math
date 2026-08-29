@@ -10,52 +10,74 @@ import (
 )
 
 // Math ops
-func Test_Float64x8_Add(t *testing.T) {
+func Test_Float64x8_Ops(t *testing.T) {
 	dataA := []float64{1, 2, 3, 4, 5, 6, 7, 8}
 	dataB := []float64{9, 10, 11, 12, 13, 14, 15, 16}
-
+	dataC := []float64{17, 18, 19, 20, 21, 22, 23, 24}
 	vec1 := simdfloats.NewFloat64x8(dataA)
 	vec2 := simdfloats.NewFloat64x8(dataB)
+	vec3 := simdfloats.NewFloat64x8(dataC)
 
-	result := vec1.Add(vec2)
+	t.Run("Add", func(t *testing.T) {
+		result := vec1.Add(vec2)
 
-	assert.Equal(t, []float64{10, 12, 14, 16, 18, 20, 22, 24}, result.ToSlice())
-}
+		assert.Equal(t, []float64{10, 12, 14, 16, 18, 20, 22, 24}, result.ToSlice())
+	})
 
-func Test_Float64x8_Sub(t *testing.T) {
-	dataA := []float64{1, 2, 3, 4, 5, 6, 7, 8}
-	dataB := []float64{9, 10, 11, 12, 13, 14, 15, 16}
+	t.Run("Abs", func(t *testing.T) {
+		vec := simdfloats.NewFloat64x8([]float64{1, -2, -3, 4, -5, 6, -7, 8})
+		result := vec.Abs()
 
-	vec1 := simdfloats.NewFloat64x8(dataA)
-	vec2 := simdfloats.NewFloat64x8(dataB)
+		assert.Equal(t, []float64{1, 2, 3, 4, 5, 6, 7, 8}, result.ToSlice())
+	})
 
-	result := vec1.Sub(vec2)
+	t.Run("Div", func(t *testing.T) {
+		result := vec1.Div(vec2)
 
-	assert.Equal(t, []float64{-8, -8, -8, -8, -8, -8, -8, -8}, result.ToSlice())
-}
+		assert.Equal(t, []float64{1, 2, 3, 4, 5, 6, 7, 8}, result.ToSlice())
+	})
 
-func Test_Float64x8_Mul(t *testing.T) {
-	dataA := []float64{1, 2, 3, 4, 5, 6, 7, 8}
-	dataB := []float64{9, 10, 11, 12, 13, 14, 15, 16}
+	t.Run("Mul", func(t *testing.T) {
+		result := vec1.Mul(vec2)
 
-	vec1 := simdfloats.NewFloat64x8(dataA)
-	vec2 := simdfloats.NewFloat64x8(dataB)
+		assert.Equal(t, []float64{9, 20, 33, 48, 65, 84, 105, 128}, result.ToSlice())
+	})
 
-	result := vec1.Mul(vec2)
+	t.Run("MulAdd", func(t *testing.T) {
+		result := vec1.MulAdd(vec2, vec3)
 
-	assert.Equal(t, []float64{9, 20, 33, 48, 65, 84, 105, 128}, result.ToSlice())
-}
+		assert.Equal(t, []float64{26, 38, 52, 68, 86, 106, 128, 152}, result.ToSlice())
+	})
 
-func Test_Float64x8_MulAdd(t *testing.T) {
-	dataA := []float64{1, 2, 3, 4, 5, 6, 7, 8}
-	dataB := []float64{9, 10, 11, 12, 13, 14, 15, 16}
+	t.Run("Max", func(t *testing.T) {
+		dataA := []float64{1, 10, 3, 12, 5, 14, 7, 16}
+		dataB := []float64{9, 2, 11, 4, 13, 6, 15, 8}
 
-	vec1 := simdfloats.NewFloat64x8(dataA)
-	vec2 := simdfloats.NewFloat64x8(dataB)
+		vec1 := simdfloats.NewFloat64x8(dataA)
+		vec2 := simdfloats.NewFloat64x8(dataB)
 
-	result := vec1.Add(vec2)
+		result := vec1.Max(vec2)
 
-	assert.Equal(t, []float64{10, 12, 14, 16, 18, 20, 22, 24}, result.ToSlice())
+		assert.Equal(t, []float64{9, 10, 11, 12, 13, 14, 15, 16}, result.ToSlice())
+	})
+
+	t.Run("Min", func(t *testing.T) {
+		dataA := []float64{1, 10, 3, 12, 5, 14, 7, 16}
+		dataB := []float64{9, 2, 11, 4, 13, 6, 15, 8}
+
+		vec1 := simdfloats.NewFloat64x8(dataA)
+		vec2 := simdfloats.NewFloat64x8(dataB)
+
+		result := vec1.Min(vec2)
+
+		assert.Equal(t, []float64{1, 2, 3, 4, 5, 6, 7, 8}, result.ToSlice())
+	})
+
+	t.Run("Sub", func(t *testing.T) {
+		result := vec1.Sub(vec2)
+
+		assert.Equal(t, []float64{-8, -8, -8, -8, -8, -8, -8, -8}, result.ToSlice())
+	})
 }
 
 // Loads

@@ -34,6 +34,14 @@ func (x Float64x8) Store(receiver []float64) {
 	}
 }
 
+// Abs returns the absolute values of the elements of x
+func (x Float64x8) Abs() Float64x8 {
+	return Float64x8{
+		data0: x.data0.Abs(),
+		data1: x.data1.Abs(),
+	}
+}
+
 // Add performs a fused: x + y.
 func (x Float64x8) Add(y Float64x8) Float64x8 {
 	return Float64x8{
@@ -42,11 +50,11 @@ func (x Float64x8) Add(y Float64x8) Float64x8 {
 	}
 }
 
-// Sub performs a fused: x - y.
-func (x Float64x8) Sub(y Float64x8) Float64x8 {
+// Abs returns the absolute values of the elements of x
+func (x Float64x8) Div(y Float64x8) Float64x8 {
 	return Float64x8{
-		data0: x.data0.Sub(y.data0),
-		data1: x.data1.Sub(y.data1),
+		data0: x.data0.Div(y.data0),
+		data1: x.data1.Div(y.data1),
 	}
 }
 
@@ -63,5 +71,53 @@ func (x Float64x8) MulAdd(y, z Float64x8) Float64x8 {
 	return Float64x8{
 		data0: x.data0.MulAdd(y.data0, z.data0),
 		data1: x.data1.MulAdd(y.data1, z.data1),
+	}
+}
+
+// Max computes the maximum of each pair of corresponding elements in x and y.
+func (x Float64x8) Max(y Float64x8) Float64x8 {
+	return Float64x8{
+		data0: x.data0.Max(y.data0),
+		data1: x.data1.Max(y.data1),
+	}
+}
+
+// Min computes the minimum of each pair of corresponding elements in x and y.
+func (x Float64x8) Min(y Float64x8) Float64x8 {
+	return Float64x8{
+		data0: x.data0.Min(y.data0),
+		data1: x.data1.Min(y.data1),
+	}
+}
+
+// Neg returns the negation of the elements of x
+func (x Float64x8) Neg() Float64x8 {
+	return Float64x8{
+		data0: x.data0.Neg(),
+		data1: x.data1.Neg(),
+	}
+}
+
+// Scale multiplies each element of x by 2 raised to the power of the floor of the corresponding element in y.
+func (x Float64x8) Scale(y Float64x8) Float64x8 {
+	return Float64x8{
+		data0: x.data0.Scale(y.data0),
+		data1: x.data1.Scale(y.data1),
+	}
+}
+
+// Sub performs a fused: x - y.
+func (x Float64x8) Sub(y Float64x8) Float64x8 {
+	return Float64x8{
+		data0: x.data0.Sub(y.data0),
+		data1: x.data1.Sub(y.data1),
+	}
+}
+
+// Sqrt computes the square root of each element.
+func (x Float64x8) Sqrt() Float64x8 {
+	return Float64x8{
+		data0: x.data0.Sqrt(),
+		data1: x.data1.Sqrt(),
 	}
 }

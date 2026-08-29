@@ -2,6 +2,8 @@
 
 package simdfloats
 
+import "math"
+
 type Float64x8 struct {
 	data [8]float64
 }
@@ -17,6 +19,18 @@ func (v Float64x8) Store(receiver []float64) {
 	copy(receiver, v.data[:])
 }
 
+// Abs returns the absolute values of the elements of x
+func (x Float64x8) Abs() Float64x8 {
+	var result Float64x8
+
+	for i := range x.data {
+		result.data[i] = math.Abs(result.data[i])
+	}
+
+	return result
+}
+
+// Add performs a fused: x + y.
 func (x Float64x8) Add(y Float64x8) Float64x8 {
 	var result Float64x8
 
@@ -27,12 +41,12 @@ func (x Float64x8) Add(y Float64x8) Float64x8 {
 	return result
 }
 
-// Sub performs a fused: x - y.
-func (x Float64x8) Sub(y Float64x8) Float64x8 {
+// Abs returns the absolute values of the elements of x
+func (x Float64x8) Div(y Float64x8) Float64x8 {
 	var result Float64x8
 
 	for i := range x.data {
-		result.data[i] = x.data[i] - y.data[i]
+		result.data[i] = x.data[i] / y.data[i]
 	}
 
 	return result
@@ -55,6 +69,72 @@ func (x Float64x8) MulAdd(y, z Float64x8) Float64x8 {
 
 	for i := range x.data {
 		result.data[i] = (x.data[i] * y.data[i]) + z.data[i]
+	}
+
+	return result
+}
+
+// Max computes the maximum of each pair of corresponding elements in x and y.
+func (x Float64x8) Max(y Float64x8) Float64x8 {
+	var result Float64x8
+
+	for i := range x.data {
+		result.data[i] = max(x.data[i], y.data[i])
+	}
+
+	return result
+}
+
+// Min computes the minimum of each pair of corresponding elements in x and y.
+func (x Float64x8) Min(y Float64x8) Float64x8 {
+	var result Float64x8
+
+	for i := range x.data {
+		result.data[i] = min(x.data[i], y.data[i])
+	}
+
+	return result
+}
+
+// Neg returns the negation of the elements of x
+func (x Float64x8) Neg() Float64x8 {
+	var result Float64x8
+
+	for i := range x.data {
+		result.data[i] = x.data[i] * -1
+	}
+
+	return result
+}
+
+// Scale multiplies each element of x by 2 raised to the power of the floor of the corresponding element in y.
+func (x Float64x8) Scale(y Float64x8) Float64x8 {
+	var result Float64x8
+
+	for i := range x.data {
+		result.data[i] = x.data[i] * math.Pow(2, y.data[i])
+	}
+
+	return result
+}
+
+// Sub performs a fused: x - y.
+func (x Float64x8) Sub(y Float64x8) Float64x8 {
+	var result Float64x8
+
+	for i := range x.data {
+		result.data[i] = x.data[i] - y.data[i]
+	}
+
+	return result
+}
+
+// Sqrt computes the square root of each element.
+func (x Float64x8) Sqrt() Float64x8 {
+	var result Float64x8
+
+	for i := range x.data {
+		result.data[i] = math.Sqrt(x.data[i])
 	}
 
 	return result
