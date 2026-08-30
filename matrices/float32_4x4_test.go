@@ -3,7 +3,7 @@ package matrices_test
 import (
 	"testing"
 
-	"github.com/daanv2/go-math/pkg/matrices"
+	"github.com/daanv2/go-math/matrices"
 	"github.com/stretchr/testify/assert"
 )
 

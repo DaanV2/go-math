@@ -1,6 +1,6 @@
 package matrices
 
-import simdfloat64 "github.com/daanv2/go-math/pkg/simd/float64"
+import simdfloat64 "github.com/daanv2/go-math/simd/float64"
 
 type Float64_4x4 struct {
 	data0 simdfloat64.Float64x8

@@ -1,6 +1,6 @@
 package matrices
 
-import simdfloat32 "github.com/daanv2/go-math/pkg/simd/float32"
+import simdfloat32 "github.com/daanv2/go-math/simd/float32"
 
 type Float32_2x2 struct {
 	data simdfloat32.Float32x4

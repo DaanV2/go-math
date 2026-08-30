@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	simdfloat64 "github.com/daanv2/go-math/pkg/simd/float64"
+	simdfloat64 "github.com/daanv2/go-math/simd/float64"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
