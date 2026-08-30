@@ -104,7 +104,7 @@ func Test_Float32x8_Ops(t *testing.T) {
 	t.Run("Sqrt", func(t *testing.T) {
 		result := vec1.Sqrt()
 
-		assert.Equal(t, []float32{1, 1.4142135623730951, 1.7320508075688772, 2, 2.23606797749979, 2.449489742783178, 2.3257513110325907, 2.8284271247461903}, result.ToSlice())
+		assert.Equal(t, []float32{1, 1.4142135, 1.7320508, 2, 2.236068, 2.4494898, 2.6457512, 2.828427}, result.ToSlice())
 	})
 }
 

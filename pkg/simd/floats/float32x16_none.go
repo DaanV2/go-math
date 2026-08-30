@@ -24,7 +24,7 @@ func (x Float32x16) Abs() Float32x16 {
 	var result Float32x16
 
 	for i := range x.data {
-		result.data[i] = math.Abs(x.data[i])
+		result.data[i] = float32(math.Abs(float64(x.data[i])))
 	}
 
 	return result
@@ -112,7 +112,7 @@ func (x Float32x16) Scale(y Float32x16) Float32x16 {
 	var result Float32x16
 
 	for i := range x.data {
-		result.data[i] = x.data[i] * math.Pow(2, y.data[i])
+		result.data[i] = x.data[i] * float32(math.Pow(2, float64(y.data[i])))
 	}
 
 	return result
@@ -134,7 +134,7 @@ func (x Float32x16) Sqrt() Float32x16 {
 	var result Float32x16
 
 	for i := range x.data {
-		result.data[i] = math.Sqrt(x.data[i])
+		result.data[i] = float32(math.Sqrt(float64(x.data[i])))
 	}
 
 	return result

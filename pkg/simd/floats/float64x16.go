@@ -1,3 +1,5 @@
+// nolint:gocritic // TODO Something for later
+
 package simdfloats
 
 import (

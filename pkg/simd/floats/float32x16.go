@@ -1,6 +1,6 @@
 package simdfloats
 
-const float32_x16_len = 8
+const float32_x16_len = 16
 
 func (x Float32x16) ToSlice() []float32 {
 	result := make([]float32, float32_x16_len)
