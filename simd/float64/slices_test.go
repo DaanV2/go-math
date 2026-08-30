@@ -22,7 +22,7 @@ func Test_Slices_Ops(t *testing.T) {
 	t.Run("MulToAll", func(t *testing.T) {
 		s := simdfloat64.NewSlice(slices.Clone(dataA))
 
-		s.AddToAll(10)
+		s.MulToAll(10)
 
 		assert.Equal(t, []float64{0, 10, 20, 30, 40, 50, 60, 70}, s.Output())
 	})
