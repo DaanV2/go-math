@@ -1,20 +1,20 @@
 package matrices
 
-import simdfloats "github.com/daanv2/go-math/pkg/simd/floats"
+import simdfloat32 "github.com/daanv2/go-math/pkg/simd/float32"
 
 type Float32_4x4 struct {
-	data0 simdfloats.Float32x8
-	data1 simdfloats.Float32x8
+	data0 simdfloat32.Float32x8
+	data1 simdfloat32.Float32x8
 }
 
 func NewFloat32_4x4(data []float32) Float32_4x4 {
 	var result Float32_4x4
 
 	if len(data) > 8 {
-		result.data0 = simdfloats.NewFloat32x8(data[:8])
-		result.data1 = simdfloats.NewFloat32x8(data[8:])
+		result.data0 = simdfloat32.NewFloat32x8(data[:8])
+		result.data1 = simdfloat32.NewFloat32x8(data[8:])
 	} else {
-		result.data0 = simdfloats.NewFloat32x8(data)
+		result.data0 = simdfloat32.NewFloat32x8(data)
 	}
 
 	return result

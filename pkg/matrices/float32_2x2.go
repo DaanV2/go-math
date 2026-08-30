@@ -1,14 +1,14 @@
 package matrices
 
-import simdfloats "github.com/daanv2/go-math/pkg/simd/floats"
+import simdfloat32 "github.com/daanv2/go-math/pkg/simd/float32"
 
 type Float32_2x2 struct {
-	data simdfloats.Float32x4
+	data simdfloat32.Float32x4
 }
 
 func NewFloat32_2x2(data []float32) Float32_2x2 {
 	var result Float32_2x2
-	result.data = simdfloats.NewFloat32x4(data)
+	result.data = simdfloat32.NewFloat32x4(data)
 
 	return result
 }
