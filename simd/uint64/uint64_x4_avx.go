@@ -16,6 +16,7 @@ func NewUint64x4(data []uint64) Uint64x4 {
 	return result
 }
 
+// NewUint64x4Boardcast returns a Uint64x4 with every lane set to value.
 func NewUint64x4Boardcast(value uint64) Uint64x4 {
 	return Uint64x4{
 		data: archsimd.BroadcastUint64x4(value),

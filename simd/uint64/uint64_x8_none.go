@@ -13,6 +13,7 @@ func NewUint64x8(data []uint64) Uint64x8 {
 	return result
 }
 
+// NewUint64x8Boardcast returns a Uint64x8 with every lane set to value.
 func NewUint64x8Boardcast(value uint64) Uint64x8 {
 	buf := [uint64_x8_len]uint64{value, value, value, value, value, value, value, value}
 

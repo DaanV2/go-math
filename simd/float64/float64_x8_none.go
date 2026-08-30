@@ -15,6 +15,7 @@ func NewFloat64x8(data []float64) Float64x8 {
 	return result
 }
 
+// NewFloat64x8Boardcast returns a Float64x8 with every lane set to value.
 func NewFloat64x8Boardcast(value float64) Float64x8 {
 	buf := [float64_x8_len]float64{value, value, value, value, value, value, value, value}
 

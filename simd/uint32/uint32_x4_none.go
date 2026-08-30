@@ -13,6 +13,7 @@ func NewUint32x4(data []uint32) Uint32x4 {
 	return result
 }
 
+// NewUint32x4Boardcast returns a Uint32x4 with every lane set to value.
 func NewUint32x4Boardcast(value uint32) Uint32x4 {
 	buf := [uint32_x4_len]uint32{value, value, value, value}
 

@@ -20,6 +20,7 @@ func NewUint64x16(data []uint64) Uint64x16 {
 	return result
 }
 
+// NewUint64x16Boardcast returns a Uint64x16 with every lane set to value.
 func NewUint64x16Boardcast(value uint64) Uint64x16 {
 	return Uint64x16{
 		data0: NewUint64x8Boardcast(value),

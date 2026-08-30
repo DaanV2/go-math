@@ -16,6 +16,7 @@ func NewInt64x2(data []int64) Int64x2 {
 	return result
 }
 
+// NewInt64x2Boardcast returns an Int64x2 with every lane set to value.
 func NewInt64x2Boardcast(value int64) Int64x2 {
 	return Int64x2{
 		data: archsimd.BroadcastInt64x2(value),

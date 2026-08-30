@@ -13,6 +13,7 @@ func NewInt64x8(data []int64) Int64x8 {
 	return result
 }
 
+// NewInt64x8Boardcast returns an Int64x8 with every lane set to value.
 func NewInt64x8Boardcast(value int64) Int64x8 {
 	buf := [int64_x8_len]int64{value, value, value, value, value, value, value, value}
 

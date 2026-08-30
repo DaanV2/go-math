@@ -24,6 +24,7 @@ func NewFloat64x16(data []float64) Float64x16 {
 	return result
 }
 
+// NewFloat64x16Boardcast returns a Float64x16 with every lane set to value.
 func NewFloat64x16Boardcast(value float64) Float64x16 {
 	return Float64x16{
 		data0: NewFloat64x8Boardcast(value),

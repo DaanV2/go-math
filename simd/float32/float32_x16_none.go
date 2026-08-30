@@ -15,6 +15,7 @@ func NewFloat32x16(data []float32) Float32x16 {
 	return result
 }
 
+// NewFloat32x16Boardcast returns a Float32x16 with every lane set to value.
 func NewFloat32x16Boardcast(value float32) Float32x16 {
 	buf := [float32_x16_len]float32{
 		value, value, value, value, value, value, value, value,

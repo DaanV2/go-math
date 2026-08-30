@@ -16,6 +16,7 @@ func NewUint32x4(data []uint32) Uint32x4 {
 	return result
 }
 
+// NewUint32x4Boardcast returns a Uint32x4 with every lane set to value.
 func NewUint32x4Boardcast(value uint32) Uint32x4 {
 	return Uint32x4{
 		data: archsimd.BroadcastUint32x4(value),

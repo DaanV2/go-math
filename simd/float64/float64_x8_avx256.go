@@ -24,6 +24,7 @@ func NewFloat64x8(data []float64) Float64x8 {
 	return result
 }
 
+// NewFloat64x8Boardcast returns a Float64x8 with every lane set to value.
 func NewFloat64x8Boardcast(value float64) Float64x8 {
 	return Float64x8{
 		data0: archsimd.BroadcastFloat64x4(value),
