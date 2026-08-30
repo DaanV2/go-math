@@ -2,7 +2,9 @@
 
 package simdfloat64
 
-import "math"
+import (
+	"math"
+)
 
 type Float64x4 struct {
 	data [float64_x4_len]float64
@@ -13,6 +15,12 @@ func NewFloat64x4(data []float64) Float64x4 {
 	copy(result.data[:], data)
 
 	return result
+}
+
+func NewFloat64x4Boardcast(value float64) Float64x4 {
+	buf := [float64_x4_len]float64{value, value, value, value}
+
+	return NewFloat64x4(buf[:])
 }
 
 func (v Float64x4) Store(receiver []float64) {

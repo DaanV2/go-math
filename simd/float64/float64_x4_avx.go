@@ -16,6 +16,12 @@ func NewFloat64x4(data []float64) Float64x4 {
 	return result
 }
 
+func NewFloat64x4Boardcast(value float64) Float64x4 {
+	return Float64x4{
+		data: archsimd.BroadcastFloat64x4(value),
+	}
+}
+
 func (x Float64x4) Store(receiver []float64) {
 	if len(receiver) >= float64_x4_len {
 		x.data.Store(receiver[:float64_x4_len])

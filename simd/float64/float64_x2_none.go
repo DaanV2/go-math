@@ -15,6 +15,12 @@ func NewFloat64x2(data []float64) Float64x2 {
 	return result
 }
 
+func NewFloat64x2Boardcast(value float64) Float64x2 {
+	buf := [float64_x2_len]float64{value, value}
+
+	return NewFloat64x2(buf[:])
+}
+
 func (v Float64x2) Store(receiver []float64) {
 	copy(receiver, v.data[:])
 }

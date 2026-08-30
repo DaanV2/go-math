@@ -24,6 +24,13 @@ func NewFloat64x16(data []float64) Float64x16 {
 	return result
 }
 
+func NewFloat64x16Boardcast(value float64) Float64x16 {
+	return Float64x16{
+		data0: NewFloat64x8Boardcast(value),
+		data1: NewFloat64x8Boardcast(value),
+	}
+}
+
 // NewFloat64x16Slice takes the given data and transfer them in a simd layout,
 // element n0, n1 ... n7 are taken a stored in the first [Float64x16], next float64_x16_len elements in the next [Float64x16] etc.
 // If not multiple of float64_x16_len, the last few numbers are put into the last lowest [Float64x16], with the rest padded to 0
