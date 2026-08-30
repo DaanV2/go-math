@@ -16,6 +16,12 @@ func NewUint32x8(data []uint32) Uint32x8 {
 	return result
 }
 
+func NewUint32x8Boardcast(value uint32) Uint32x8 {
+	return Uint32x8{
+		data: archsimd.BroadcastUint32x8(value),
+	}
+}
+
 func (x Uint32x8) Store(receiver []uint32) {
 	if len(receiver) >= uint32_x8_len {
 		x.data.Store(receiver[:uint32_x8_len])

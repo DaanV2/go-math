@@ -16,6 +16,12 @@ func NewInt32x16(data []int32) Int32x16 {
 	return result
 }
 
+func NewInt32x16Boardcast(value int32) Int32x16 {
+	return Int32x16{
+		data: archsimd.BroadcastInt32x16(value),
+	}
+}
+
 func (v Int32x16) Store(receiver []int32) {
 	v.data.StorePart(receiver)
 }

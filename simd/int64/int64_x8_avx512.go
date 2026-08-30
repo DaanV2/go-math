@@ -16,6 +16,12 @@ func NewInt64x8(data []int64) Int64x8 {
 	return result
 }
 
+func NewInt64x8Boardcast(value int64) Int64x8 {
+	return Int64x8{
+		data: archsimd.BroadcastInt64x8(value),
+	}
+}
+
 func (v Int64x8) Store(receiver []int64) {
 	v.data.StorePart(receiver)
 }

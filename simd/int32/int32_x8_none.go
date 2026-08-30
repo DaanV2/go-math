@@ -13,6 +13,12 @@ func NewInt32x8(data []int32) Int32x8 {
 	return result
 }
 
+func NewInt32x8Boardcast(value int32) Int32x8 {
+	buf := [int32_x8_len]int32{value, value, value, value, value, value, value, value}
+
+	return NewInt32x8(buf[:])
+}
+
 func (v Int32x8) Store(receiver []int32) {
 	copy(receiver, v.data[:])
 }

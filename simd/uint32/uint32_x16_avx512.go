@@ -16,6 +16,12 @@ func NewUint32x16(data []uint32) Uint32x16 {
 	return result
 }
 
+func NewUint32x16Boardcast(value uint32) Uint32x16 {
+	return Uint32x16{
+		data: archsimd.BroadcastUint32x16(value),
+	}
+}
+
 func (v Uint32x16) Store(receiver []uint32) {
 	v.data.StorePart(receiver)
 }

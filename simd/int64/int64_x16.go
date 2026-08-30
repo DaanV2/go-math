@@ -20,6 +20,13 @@ func NewInt64x16(data []int64) Int64x16 {
 	return result
 }
 
+func NewInt64x16Boardcast(value int64) Int64x16 {
+	return Int64x16{
+		data0: NewInt64x8Boardcast(value),
+		data1: NewInt64x8Boardcast(value),
+	}
+}
+
 // NewInt64x16Slice takes the given data and transfer them in a simd layout,
 // element n0, n1 ... n7 are taken a stored in the first [Int64x16], next int64_x16_len elements in the next [Int64x16] etc.
 // If not multiple of int64_x16_len, the last few numbers are put into the last lowest [Int64x16], with the rest padded to 0

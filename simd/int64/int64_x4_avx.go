@@ -16,6 +16,12 @@ func NewInt64x4(data []int64) Int64x4 {
 	return result
 }
 
+func NewInt64x4Boardcast(value int64) Int64x4 {
+	return Int64x4{
+		data: archsimd.BroadcastInt64x4(value),
+	}
+}
+
 func (x Int64x4) Store(receiver []int64) {
 	if len(receiver) >= int64_x4_len {
 		x.data.Store(receiver[:int64_x4_len])

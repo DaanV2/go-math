@@ -21,6 +21,13 @@ func NewInt64x8(data []int64) Int64x8 {
 	return result
 }
 
+func NewInt64x8Boardcast(value int64) Int64x8 {
+	return Int64x8{
+		data0: archsimd.BroadcastInt64x4(value),
+		data1: archsimd.BroadcastInt64x4(value),
+	}
+}
+
 func (x Int64x8) Store(receiver []int64) {
 	switch {
 	case len(receiver) == int64_x8_len:

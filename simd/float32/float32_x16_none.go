@@ -15,6 +15,15 @@ func NewFloat32x16(data []float32) Float32x16 {
 	return result
 }
 
+func NewFloat32x16Boardcast(value float32) Float32x16 {
+	buf := [float32_x16_len]float32{
+		value, value, value, value, value, value, value, value,
+		value, value, value, value, value, value, value, value,
+	}
+
+	return NewFloat32x16(buf[:])
+}
+
 func (v Float32x16) Store(receiver []float32) {
 	copy(receiver, v.data[:])
 }

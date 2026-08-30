@@ -16,6 +16,12 @@ func NewFloat32x16(data []float32) Float32x16 {
 	return result
 }
 
+func NewFloat32x16Boardcast(value float32) Float32x16 {
+	return Float32x16{
+		data: archsimd.BroadcastFloat32x16(value),
+	}
+}
+
 func (v Float32x16) Store(receiver []float32) {
 	v.data.StorePart(receiver)
 }

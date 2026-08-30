@@ -21,6 +21,13 @@ func NewInt32x16(data []int32) Int32x16 {
 	return result
 }
 
+func NewInt32x16Boardcast(value int32) Int32x16 {
+	return Int32x16{
+		data0: archsimd.BroadcastInt32x8(value),
+		data1: archsimd.BroadcastInt32x8(value),
+	}
+}
+
 func (x Int32x16) Store(receiver []int32) {
 	switch {
 	case len(receiver) == int32_x16_len:

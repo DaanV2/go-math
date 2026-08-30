@@ -16,6 +16,12 @@ func NewUint64x8(data []uint64) Uint64x8 {
 	return result
 }
 
+func NewUint64x8Boardcast(value uint64) Uint64x8 {
+	return Uint64x8{
+		data: archsimd.BroadcastUint64x8(value),
+	}
+}
+
 func (v Uint64x8) Store(receiver []uint64) {
 	v.data.StorePart(receiver)
 }

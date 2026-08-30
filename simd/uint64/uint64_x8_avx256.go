@@ -21,6 +21,13 @@ func NewUint64x8(data []uint64) Uint64x8 {
 	return result
 }
 
+func NewUint64x8Boardcast(value uint64) Uint64x8 {
+	return Uint64x8{
+		data0: archsimd.BroadcastUint64x4(value),
+		data1: archsimd.BroadcastUint64x4(value),
+	}
+}
+
 func (x Uint64x8) Store(receiver []uint64) {
 	switch {
 	case len(receiver) == uint64_x8_len:

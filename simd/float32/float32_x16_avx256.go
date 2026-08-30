@@ -24,6 +24,13 @@ func NewFloat32x16(data []float32) Float32x16 {
 	return result
 }
 
+func NewFloat32x16Boardcast(value float32) Float32x16 {
+	return Float32x16{
+		data0: archsimd.BroadcastFloat32x8(value),
+		data1: archsimd.BroadcastFloat32x8(value),
+	}
+}
+
 func (x Float32x16) Store(receiver []float32) {
 	switch {
 	case len(receiver) == float32_x16_len:

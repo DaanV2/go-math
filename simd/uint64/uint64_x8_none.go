@@ -13,6 +13,12 @@ func NewUint64x8(data []uint64) Uint64x8 {
 	return result
 }
 
+func NewUint64x8Boardcast(value uint64) Uint64x8 {
+	buf := [uint64_x8_len]uint64{value, value, value, value, value, value, value, value}
+
+	return NewUint64x8(buf[:])
+}
+
 func (v Uint64x8) Store(receiver []uint64) {
 	copy(receiver, v.data[:])
 }
