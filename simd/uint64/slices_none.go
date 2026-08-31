@@ -170,6 +170,138 @@ func (s *Slice) ShiftRightToAll(count uint) {
 	}
 }
 
+// Add adds v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] + v[i]
+func (s *Slice) Add(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] += v[i]
+	}
+}
+
+// Sub subtracts v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] - v[i]
+func (s *Slice) Sub(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] -= v[i]
+	}
+}
+
+// Mul multiplies v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] * v[i]
+func (s *Slice) Mul(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] *= v[i]
+	}
+}
+
+// Div divides s by v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] / v[i]
+func (s *Slice) Div(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] /= v[i]
+	}
+}
+
+// MinWith sets each element to the minimum of itself and the corresponding
+// element of v, over min(len(s), len(v)) elements
+// performs: s[i] = min(s[i], v[i])
+func (s *Slice) MinWith(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] = min(s.data[i], v[i])
+	}
+}
+
+// MaxWith sets each element to the maximum of itself and the corresponding
+// element of v, over min(len(s), len(v)) elements
+// performs: s[i] = max(s[i], v[i])
+func (s *Slice) MaxWith(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] = max(s.data[i], v[i])
+	}
+}
+
+// And performs a bitwise AND against v element-wise, over min(len(s), len(v)) elements
+// performs: s[i] = s[i] & v[i]
+func (s *Slice) And(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] &= v[i]
+	}
+}
+
+// Or performs a bitwise OR against v element-wise, over min(len(s), len(v)) elements
+// performs: s[i] = s[i] | v[i]
+func (s *Slice) Or(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] |= v[i]
+	}
+}
+
+// Xor performs a bitwise XOR against v element-wise, over min(len(s), len(v)) elements
+// performs: s[i] = s[i] ^ v[i]
+func (s *Slice) Xor(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] ^= v[i]
+	}
+}
+
+// AndNot clears the bits of v from s element-wise, over min(len(s), len(v)) elements
+// performs: s[i] = s[i] &^ v[i]
+func (s *Slice) AndNot(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] &^= v[i]
+	}
+}
+
 // Sum returns the sum of all elements, or 0 for an empty slice
 // performs: sum(s[i])
 func (s *Slice) Sum() uint64 {

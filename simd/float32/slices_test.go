@@ -80,6 +80,48 @@ func Test_Slices_MutateOps(t *testing.T) {
 	}
 }
 
+// Test_Slices_PairwiseOps checks the slice-vs-slice mutation methods against
+// plain-Go references, including cases where the two slices differ in length
+// so only min(len(s), len(v)) elements should be touched.
+func Test_Slices_PairwiseOps(t *testing.T) {
+	cases := []struct {
+		name string
+		mut  func(s *simdfloat32.Slice, v []float32)
+		ref  func(a, b float32) float32
+	}{
+		{"Add", func(s *simdfloat32.Slice, v []float32) { s.Add(v) }, func(a, b float32) float32 { return a + b }},
+		{"Sub", func(s *simdfloat32.Slice, v []float32) { s.Sub(v) }, func(a, b float32) float32 { return a - b }},
+		{"Mul", func(s *simdfloat32.Slice, v []float32) { s.Mul(v) }, func(a, b float32) float32 { return a * b }},
+		{"Div", func(s *simdfloat32.Slice, v []float32) { s.Div(v) }, func(a, b float32) float32 { return a / b }},
+		{"MinWith", func(s *simdfloat32.Slice, v []float32) { s.MinWith(v) }, func(a, b float32) float32 { return min(a, b) }},
+		{"MaxWith", func(s *simdfloat32.Slice, v []float32) { s.MaxWith(v) }, func(a, b float32) float32 { return max(a, b) }},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			for _, n := range lengths {
+				for _, m := range lengths {
+					data := makeData(n)
+					other := make([]float32, m)
+					for i := range other {
+						other[i] = float32(i) + 1
+					}
+
+					want := slices.Clone(data)
+					for i := range min(n, m) {
+						want[i] = c.ref(want[i], other[i])
+					}
+
+					s := simdfloat32.NewSlice(slices.Clone(data))
+					c.mut(s, other)
+
+					assert.Equalf(t, want, s.Output(), "len=%d, otherLen=%d", n, m)
+				}
+			}
+		})
+	}
+}
+
 // Test_Slices_Sqrt is separated out because it needs non-negative inputs.
 func Test_Slices_Sqrt(t *testing.T) {
 	for _, n := range lengths {
@@ -138,6 +180,12 @@ func Test_Slices_NilAndEmpty(t *testing.T) {
 		nilSlice.Negate()
 		nilSlice.Abs()
 		nilSlice.Sqrt()
+		nilSlice.Add([]float32{1})
+		nilSlice.Sub([]float32{1})
+		nilSlice.Mul([]float32{1})
+		nilSlice.Div([]float32{1})
+		nilSlice.MinWith([]float32{1})
+		nilSlice.MaxWith([]float32{1})
 	})
 
 	assert.Equal(t, float32(0), nilSlice.Sum())

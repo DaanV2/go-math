@@ -338,6 +338,247 @@ func (s *Slice) ShiftRightToAll(count uint) {
 	}
 }
 
+// Add adds v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] + v[i]
+func (s *Slice) Add(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 4
+	var i int
+
+	for i < (n - l) {
+		a := NewUint64x4(s.data[i : i+l])
+		b := NewUint64x4(v[i : i+l])
+		a = a.Add(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] += v[i]
+		i += 1
+	}
+}
+
+// Sub subtracts v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] - v[i]
+func (s *Slice) Sub(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 4
+	var i int
+
+	for i < (n - l) {
+		a := NewUint64x4(s.data[i : i+l])
+		b := NewUint64x4(v[i : i+l])
+		a = a.Sub(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] -= v[i]
+		i += 1
+	}
+}
+
+// Mul multiplies v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] * v[i]
+func (s *Slice) Mul(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 4
+	var i int
+
+	for i < (n - l) {
+		a := NewUint64x4(s.data[i : i+l])
+		b := NewUint64x4(v[i : i+l])
+		a = a.Mul(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] *= v[i]
+		i += 1
+	}
+}
+
+// Div divides s by v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] / v[i]
+// NOTE: there is no hardware vectorised integer division, this always runs scalar
+func (s *Slice) Div(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	for i := range n {
+		s.data[i] /= v[i]
+	}
+}
+
+// MinWith sets each element to the minimum of itself and the corresponding
+// element of v, over min(len(s), len(v)) elements
+// performs: s[i] = min(s[i], v[i])
+func (s *Slice) MinWith(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 4
+	var i int
+
+	for i < (n - l) {
+		a := NewUint64x4(s.data[i : i+l])
+		b := NewUint64x4(v[i : i+l])
+		a = a.Min(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] = min(s.data[i], v[i])
+		i += 1
+	}
+}
+
+// MaxWith sets each element to the maximum of itself and the corresponding
+// element of v, over min(len(s), len(v)) elements
+// performs: s[i] = max(s[i], v[i])
+func (s *Slice) MaxWith(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 4
+	var i int
+
+	for i < (n - l) {
+		a := NewUint64x4(s.data[i : i+l])
+		b := NewUint64x4(v[i : i+l])
+		a = a.Max(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] = max(s.data[i], v[i])
+		i += 1
+	}
+}
+
+// And performs a bitwise AND against v element-wise, over min(len(s), len(v)) elements
+// performs: s[i] = s[i] & v[i]
+func (s *Slice) And(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 4
+	var i int
+
+	for i < (n - l) {
+		a := NewUint64x4(s.data[i : i+l])
+		b := NewUint64x4(v[i : i+l])
+		a = a.And(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] &= v[i]
+		i += 1
+	}
+}
+
+// Or performs a bitwise OR against v element-wise, over min(len(s), len(v)) elements
+// performs: s[i] = s[i] | v[i]
+func (s *Slice) Or(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 4
+	var i int
+
+	for i < (n - l) {
+		a := NewUint64x4(s.data[i : i+l])
+		b := NewUint64x4(v[i : i+l])
+		a = a.Or(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] |= v[i]
+		i += 1
+	}
+}
+
+// Xor performs a bitwise XOR against v element-wise, over min(len(s), len(v)) elements
+// performs: s[i] = s[i] ^ v[i]
+func (s *Slice) Xor(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 4
+	var i int
+
+	for i < (n - l) {
+		a := NewUint64x4(s.data[i : i+l])
+		b := NewUint64x4(v[i : i+l])
+		a = a.Xor(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] ^= v[i]
+		i += 1
+	}
+}
+
+// AndNot clears the bits of v from s element-wise, over min(len(s), len(v)) elements
+// performs: s[i] = s[i] &^ v[i]
+func (s *Slice) AndNot(v []uint64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 4
+	var i int
+
+	for i < (n - l) {
+		a := NewUint64x4(s.data[i : i+l])
+		b := NewUint64x4(v[i : i+l])
+		a = a.AndNot(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] &^= v[i]
+		i += 1
+	}
+}
+
 // Sum returns the sum of all elements, or 0 for an empty slice
 // performs: sum(s[i])
 func (s *Slice) Sum() uint64 {

@@ -250,6 +250,158 @@ func (s *Slice) Sqrt() {
 	}
 }
 
+// Add adds v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] + v[i]
+func (s *Slice) Add(v []float64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 8
+	var i int
+
+	for i < (n - l) {
+		a := archsimd.LoadFloat64x8(s.data[i : i+l])
+		b := archsimd.LoadFloat64x8(v[i : i+l])
+		a = a.Add(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] += v[i]
+		i += 1
+	}
+}
+
+// Sub subtracts v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] - v[i]
+func (s *Slice) Sub(v []float64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 8
+	var i int
+
+	for i < (n - l) {
+		a := archsimd.LoadFloat64x8(s.data[i : i+l])
+		b := archsimd.LoadFloat64x8(v[i : i+l])
+		a = a.Sub(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] -= v[i]
+		i += 1
+	}
+}
+
+// Mul multiplies v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] * v[i]
+func (s *Slice) Mul(v []float64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 8
+	var i int
+
+	for i < (n - l) {
+		a := archsimd.LoadFloat64x8(s.data[i : i+l])
+		b := archsimd.LoadFloat64x8(v[i : i+l])
+		a = a.Mul(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] *= v[i]
+		i += 1
+	}
+}
+
+// Div divides s by v element-wise, updating s in place over min(len(s), len(v)) elements
+// performs: s[i] = s[i] / v[i]
+func (s *Slice) Div(v []float64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 8
+	var i int
+
+	for i < (n - l) {
+		a := archsimd.LoadFloat64x8(s.data[i : i+l])
+		b := archsimd.LoadFloat64x8(v[i : i+l])
+		a = a.Div(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] /= v[i]
+		i += 1
+	}
+}
+
+// MinWith sets each element to the minimum of itself and the corresponding
+// element of v, over min(len(s), len(v)) elements
+// performs: s[i] = min(s[i], v[i])
+func (s *Slice) MinWith(v []float64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 8
+	var i int
+
+	for i < (n - l) {
+		a := archsimd.LoadFloat64x8(s.data[i : i+l])
+		b := archsimd.LoadFloat64x8(v[i : i+l])
+		a = a.Min(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] = min(s.data[i], v[i])
+		i += 1
+	}
+}
+
+// MaxWith sets each element to the maximum of itself and the corresponding
+// element of v, over min(len(s), len(v)) elements
+// performs: s[i] = max(s[i], v[i])
+func (s *Slice) MaxWith(v []float64) {
+	if s == nil || len(s.data) == 0 || len(v) == 0 {
+		return
+	}
+
+	n := min(len(s.data), len(v))
+	l := 8
+	var i int
+
+	for i < (n - l) {
+		a := archsimd.LoadFloat64x8(s.data[i : i+l])
+		b := archsimd.LoadFloat64x8(v[i : i+l])
+		a = a.Max(b)
+		a.Store(s.data[i : i+l])
+		i += l
+	}
+
+	for i < n {
+		s.data[i] = max(s.data[i], v[i])
+		i += 1
+	}
+}
+
 // Sum returns the sum of all elements, or 0 for an empty slice
 // performs: sum(s[i])
 func (s *Slice) Sum() float64 {

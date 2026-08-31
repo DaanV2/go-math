@@ -91,6 +91,52 @@ func Test_Slices_MutateOps(t *testing.T) {
 	}
 }
 
+// Test_Slices_PairwiseOps checks the slice-vs-slice mutation methods against
+// plain-Go references, including cases where the two slices differ in length
+// so only min(len(s), len(v)) elements should be touched.
+func Test_Slices_PairwiseOps(t *testing.T) {
+	cases := []struct {
+		name string
+		mut  func(s *simdint32.Slice, v []int32)
+		ref  func(a, b int32) int32
+	}{
+		{"Add", func(s *simdint32.Slice, v []int32) { s.Add(v) }, func(a, b int32) int32 { return a + b }},
+		{"Sub", func(s *simdint32.Slice, v []int32) { s.Sub(v) }, func(a, b int32) int32 { return a - b }},
+		{"Mul", func(s *simdint32.Slice, v []int32) { s.Mul(v) }, func(a, b int32) int32 { return a * b }},
+		{"Div", func(s *simdint32.Slice, v []int32) { s.Div(v) }, func(a, b int32) int32 { return a / b }},
+		{"MinWith", func(s *simdint32.Slice, v []int32) { s.MinWith(v) }, func(a, b int32) int32 { return min(a, b) }},
+		{"MaxWith", func(s *simdint32.Slice, v []int32) { s.MaxWith(v) }, func(a, b int32) int32 { return max(a, b) }},
+		{"And", func(s *simdint32.Slice, v []int32) { s.And(v) }, func(a, b int32) int32 { return a & b }},
+		{"Or", func(s *simdint32.Slice, v []int32) { s.Or(v) }, func(a, b int32) int32 { return a | b }},
+		{"Xor", func(s *simdint32.Slice, v []int32) { s.Xor(v) }, func(a, b int32) int32 { return a ^ b }},
+		{"AndNot", func(s *simdint32.Slice, v []int32) { s.AndNot(v) }, func(a, b int32) int32 { return a &^ b }},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			for _, n := range lengths {
+				for _, m := range lengths {
+					data := makeData(n)
+					other := make([]int32, m)
+					for i := range other {
+						other[i] = int32(i) + 1
+					}
+
+					want := slices.Clone(data)
+					for i := range min(n, m) {
+						want[i] = c.ref(want[i], other[i])
+					}
+
+					s := simdint32.NewSlice(slices.Clone(data))
+					c.mut(s, other)
+
+					assert.Equalf(t, want, s.Output(), "len=%d, otherLen=%d", n, m)
+				}
+			}
+		})
+	}
+}
+
 // Test_Slices_Reductions checks Sum/Min/Max against plain-Go references.
 func Test_Slices_Reductions(t *testing.T) {
 	for _, n := range lengths {
@@ -138,6 +184,16 @@ func Test_Slices_NilAndEmpty(t *testing.T) {
 		nilSlice.Not()
 		nilSlice.ShiftLeftToAll(1)
 		nilSlice.ShiftRightToAll(1)
+		nilSlice.Add([]int32{1})
+		nilSlice.Sub([]int32{1})
+		nilSlice.Mul([]int32{1})
+		nilSlice.Div([]int32{1})
+		nilSlice.MinWith([]int32{1})
+		nilSlice.MaxWith([]int32{1})
+		nilSlice.And([]int32{1})
+		nilSlice.Or([]int32{1})
+		nilSlice.Xor([]int32{1})
+		nilSlice.AndNot([]int32{1})
 	})
 
 	assert.Equal(t, int32(0), nilSlice.Sum())
