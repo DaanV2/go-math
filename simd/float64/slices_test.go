@@ -19,6 +19,7 @@ func makeData(n int) []float64 {
 	for i := range data {
 		data[i] = float64(i)*1.5 - float64(n)/2
 	}
+
 	return data
 }
 
@@ -59,7 +60,7 @@ func Test_Slices_MutateOps(t *testing.T) {
 		{"MaxToAll", func(s *simdfloat64.Slice) { s.MaxToAll(1) }, func(v float64) float64 { return max(v, 1) }},
 		{"Fill", func(s *simdfloat64.Slice) { s.Fill(9) }, func(v float64) float64 { return 9 }},
 		{"Negate", func(s *simdfloat64.Slice) { s.Negate() }, func(v float64) float64 { return -v }},
-		{"Abs", func(s *simdfloat64.Slice) { s.Abs() }, func(v float64) float64 { return math.Abs(v) }},
+		{"Abs", func(s *simdfloat64.Slice) { s.Abs() }, math.Abs},
 	}
 
 	for _, c := range cases {

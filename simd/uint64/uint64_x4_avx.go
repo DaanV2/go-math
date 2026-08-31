@@ -8,9 +8,7 @@ type Uint64x4 struct {
 	data archsimd.Uint64x4
 }
 
-func NewUint64x4(data []uint64) Uint64x4 {
-	var result Uint64x4
-
+func NewUint64x4(data []uint64) (result Uint64x4) {
 	result.data, _ = archsimd.LoadUint64x4Part(data)
 
 	return result

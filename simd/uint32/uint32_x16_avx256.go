@@ -9,9 +9,7 @@ type Uint32x16 struct {
 	data1 archsimd.Uint32x8
 }
 
-func NewUint32x16(data []uint32) Uint32x16 {
-	var result Uint32x16
-
+func NewUint32x16(data []uint32) (result Uint32x16) {
 	var n int
 	result.data0, n = archsimd.LoadUint32x8Part(data)
 	if n == 8 { // Read atleast 8 points, so there should be more

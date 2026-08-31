@@ -9,9 +9,7 @@ type Uint64x8 struct {
 	data1 archsimd.Uint64x4
 }
 
-func NewUint64x8(data []uint64) Uint64x8 {
-	var result Uint64x8
-
+func NewUint64x8(data []uint64) (result Uint64x8) {
 	var n int
 	result.data0, n = archsimd.LoadUint64x4Part(data)
 	if n == 4 { // Read atleast 4 points, so there should be more

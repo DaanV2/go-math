@@ -18,6 +18,7 @@ func makeData(n int) []int32 {
 	for i := range data {
 		data[i] = int32(i)*3 - int32(n)/2
 	}
+
 	return data
 }
 
@@ -62,6 +63,7 @@ func Test_Slices_MutateOps(t *testing.T) {
 			if v < 0 {
 				return -v
 			}
+
 			return v
 		}},
 		{"AndToAll", func(s *simdint32.Slice) { s.AndToAll(6) }, func(v int32) int32 { return v & 6 }},

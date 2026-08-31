@@ -9,9 +9,7 @@ type Int64x16 struct {
 	data1 Int64x8
 }
 
-func NewInt64x16(data []int64) Int64x16 {
-	var result Int64x16
-
+func NewInt64x16(data []int64) (result Int64x16) {
 	result.data0 = NewInt64x8(data)
 	if len(data) > 8 { // Read atleast 8 points, so there should be more
 		result.data1 = NewInt64x8(data[(int64_x16_len / 2):])

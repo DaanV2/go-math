@@ -6,8 +6,7 @@ type Int64x2 struct {
 	data [int64_x2_len]int64
 }
 
-func NewInt64x2(data []int64) Int64x2 {
-	var result Int64x2
+func NewInt64x2(data []int64) (result Int64x2) {
 	copy(result.data[:], data)
 
 	return result
@@ -25,9 +24,7 @@ func (v Int64x2) Store(receiver []int64) {
 }
 
 // Abs returns the absolute values of the elements of x
-func (x Int64x2) Abs() Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) Abs() (result Int64x2) {
 	for i := range x.data {
 		if x.data[i] < 0 {
 			result.data[i] = -x.data[i]
@@ -40,9 +37,7 @@ func (x Int64x2) Abs() Int64x2 {
 }
 
 // Add performs a fused: x + y.
-func (x Int64x2) Add(y Int64x2) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) Add(y Int64x2) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = x.data[i] + y.data[i]
 	}
@@ -51,9 +46,7 @@ func (x Int64x2) Add(y Int64x2) Int64x2 {
 }
 
 // Mul performs a fused: x * y.
-func (x Int64x2) Mul(y Int64x2) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) Mul(y Int64x2) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = x.data[i] * y.data[i]
 	}
@@ -62,9 +55,7 @@ func (x Int64x2) Mul(y Int64x2) Int64x2 {
 }
 
 // Max computes the maximum of each pair of corresponding elements in x and y.
-func (x Int64x2) Max(y Int64x2) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) Max(y Int64x2) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = max(x.data[i], y.data[i])
 	}
@@ -73,9 +64,7 @@ func (x Int64x2) Max(y Int64x2) Int64x2 {
 }
 
 // Min computes the minimum of each pair of corresponding elements in x and y.
-func (x Int64x2) Min(y Int64x2) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) Min(y Int64x2) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = min(x.data[i], y.data[i])
 	}
@@ -84,9 +73,7 @@ func (x Int64x2) Min(y Int64x2) Int64x2 {
 }
 
 // Neg returns the negation of the elements of x
-func (x Int64x2) Neg() Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) Neg() (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = x.data[i] * -1
 	}
@@ -95,9 +82,7 @@ func (x Int64x2) Neg() Int64x2 {
 }
 
 // Sub performs a fused: x - y.
-func (x Int64x2) Sub(y Int64x2) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) Sub(y Int64x2) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = x.data[i] - y.data[i]
 	}
@@ -106,9 +91,7 @@ func (x Int64x2) Sub(y Int64x2) Int64x2 {
 }
 
 // And performs a bitwise AND: x & y.
-func (x Int64x2) And(y Int64x2) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) And(y Int64x2) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = x.data[i] & y.data[i]
 	}
@@ -117,9 +100,7 @@ func (x Int64x2) And(y Int64x2) Int64x2 {
 }
 
 // AndNot performs a bitwise AND NOT: x &^ y.
-func (x Int64x2) AndNot(y Int64x2) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) AndNot(y Int64x2) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = x.data[i] &^ y.data[i]
 	}
@@ -128,9 +109,7 @@ func (x Int64x2) AndNot(y Int64x2) Int64x2 {
 }
 
 // Or performs a bitwise OR: x | y.
-func (x Int64x2) Or(y Int64x2) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) Or(y Int64x2) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = x.data[i] | y.data[i]
 	}
@@ -139,9 +118,7 @@ func (x Int64x2) Or(y Int64x2) Int64x2 {
 }
 
 // Xor performs a bitwise XOR: x ^ y.
-func (x Int64x2) Xor(y Int64x2) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) Xor(y Int64x2) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = x.data[i] ^ y.data[i]
 	}
@@ -150,9 +127,7 @@ func (x Int64x2) Xor(y Int64x2) Int64x2 {
 }
 
 // Not performs a bitwise NOT: ^x.
-func (x Int64x2) Not() Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) Not() (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = ^x.data[i]
 	}
@@ -161,9 +136,7 @@ func (x Int64x2) Not() Int64x2 {
 }
 
 // ShiftLeft shifts each element of x left by count bits: x << count.
-func (x Int64x2) ShiftLeft(count uint) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) ShiftLeft(count uint) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = x.data[i] << count
 	}
@@ -172,9 +145,7 @@ func (x Int64x2) ShiftLeft(count uint) Int64x2 {
 }
 
 // ShiftRight shifts each element of x right by count bits: x >> count (arithmetic).
-func (x Int64x2) ShiftRight(count uint) Int64x2 {
-	var result Int64x2
-
+func (x Int64x2) ShiftRight(count uint) (result Int64x2) {
 	for i := range x.data {
 		result.data[i] = x.data[i] >> count
 	}

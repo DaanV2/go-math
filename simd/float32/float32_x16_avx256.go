@@ -12,9 +12,7 @@ type Float32x16 struct {
 	data1 archsimd.Float32x8
 }
 
-func NewFloat32x16(data []float32) Float32x16 {
-	var result Float32x16
-
+func NewFloat32x16(data []float32) (result Float32x16) {
 	var n int
 	result.data0, n = archsimd.LoadFloat32x8Part(data)
 	if n == 8 { // Read atleast 8 points, so there should be more

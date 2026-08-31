@@ -6,8 +6,7 @@ type Uint32x4 struct {
 	data [uint32_x4_len]uint32
 }
 
-func NewUint32x4(data []uint32) Uint32x4 {
-	var result Uint32x4
+func NewUint32x4(data []uint32) (result Uint32x4) {
 	copy(result.data[:], data)
 
 	return result
@@ -25,9 +24,7 @@ func (v Uint32x4) Store(receiver []uint32) {
 }
 
 // Add performs a fused: x + y.
-func (x Uint32x4) Add(y Uint32x4) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) Add(y Uint32x4) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = x.data[i] + y.data[i]
 	}
@@ -36,9 +33,7 @@ func (x Uint32x4) Add(y Uint32x4) Uint32x4 {
 }
 
 // Mul performs a fused: x * y.
-func (x Uint32x4) Mul(y Uint32x4) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) Mul(y Uint32x4) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = x.data[i] * y.data[i]
 	}
@@ -47,9 +42,7 @@ func (x Uint32x4) Mul(y Uint32x4) Uint32x4 {
 }
 
 // Max computes the maximum of each pair of corresponding elements in x and y.
-func (x Uint32x4) Max(y Uint32x4) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) Max(y Uint32x4) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = max(x.data[i], y.data[i])
 	}
@@ -58,9 +51,7 @@ func (x Uint32x4) Max(y Uint32x4) Uint32x4 {
 }
 
 // Min computes the minimum of each pair of corresponding elements in x and y.
-func (x Uint32x4) Min(y Uint32x4) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) Min(y Uint32x4) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = min(x.data[i], y.data[i])
 	}
@@ -69,9 +60,7 @@ func (x Uint32x4) Min(y Uint32x4) Uint32x4 {
 }
 
 // Sub performs a fused: x - y.
-func (x Uint32x4) Sub(y Uint32x4) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) Sub(y Uint32x4) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = x.data[i] - y.data[i]
 	}
@@ -80,9 +69,7 @@ func (x Uint32x4) Sub(y Uint32x4) Uint32x4 {
 }
 
 // And performs a bitwise AND: x & y.
-func (x Uint32x4) And(y Uint32x4) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) And(y Uint32x4) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = x.data[i] & y.data[i]
 	}
@@ -91,9 +78,7 @@ func (x Uint32x4) And(y Uint32x4) Uint32x4 {
 }
 
 // AndNot performs a bitwise AND NOT: x &^ y.
-func (x Uint32x4) AndNot(y Uint32x4) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) AndNot(y Uint32x4) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = x.data[i] &^ y.data[i]
 	}
@@ -102,9 +87,7 @@ func (x Uint32x4) AndNot(y Uint32x4) Uint32x4 {
 }
 
 // Or performs a bitwise OR: x | y.
-func (x Uint32x4) Or(y Uint32x4) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) Or(y Uint32x4) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = x.data[i] | y.data[i]
 	}
@@ -113,9 +96,7 @@ func (x Uint32x4) Or(y Uint32x4) Uint32x4 {
 }
 
 // Xor performs a bitwise XOR: x ^ y.
-func (x Uint32x4) Xor(y Uint32x4) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) Xor(y Uint32x4) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = x.data[i] ^ y.data[i]
 	}
@@ -124,9 +105,7 @@ func (x Uint32x4) Xor(y Uint32x4) Uint32x4 {
 }
 
 // Not performs a bitwise NOT: ^x.
-func (x Uint32x4) Not() Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) Not() (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = ^x.data[i]
 	}
@@ -135,9 +114,7 @@ func (x Uint32x4) Not() Uint32x4 {
 }
 
 // ShiftLeft shifts each element of x left by count bits: x << count.
-func (x Uint32x4) ShiftLeft(count uint) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) ShiftLeft(count uint) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = x.data[i] << count
 	}
@@ -146,9 +123,7 @@ func (x Uint32x4) ShiftLeft(count uint) Uint32x4 {
 }
 
 // ShiftRight shifts each element of x right by count bits: x >> count (logical).
-func (x Uint32x4) ShiftRight(count uint) Uint32x4 {
-	var result Uint32x4
-
+func (x Uint32x4) ShiftRight(count uint) (result Uint32x4) {
 	for i := range x.data {
 		result.data[i] = x.data[i] >> count
 	}

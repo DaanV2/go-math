@@ -8,9 +8,7 @@ type Float32x8 struct {
 	data archsimd.Float32x8
 }
 
-func NewFloat32x8(data []float32) Float32x8 {
-	var result Float32x8
-
+func NewFloat32x8(data []float32) (result Float32x8) {
 	result.data, _ = archsimd.LoadFloat32x8Part(data)
 
 	return result

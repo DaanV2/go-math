@@ -6,8 +6,7 @@ type Uint32x16 struct {
 	data [uint32_x16_len]uint32
 }
 
-func NewUint32x16(data []uint32) Uint32x16 {
-	var result Uint32x16
+func NewUint32x16(data []uint32) (result Uint32x16) {
 	copy(result.data[:], data)
 
 	return result
@@ -28,9 +27,7 @@ func (v Uint32x16) Store(receiver []uint32) {
 }
 
 // Add performs a fused: x + y.
-func (x Uint32x16) Add(y Uint32x16) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) Add(y Uint32x16) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] + y.data[i]
 	}
@@ -39,9 +36,7 @@ func (x Uint32x16) Add(y Uint32x16) Uint32x16 {
 }
 
 // Mul performs a fused: x * y.
-func (x Uint32x16) Mul(y Uint32x16) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) Mul(y Uint32x16) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] * y.data[i]
 	}
@@ -50,9 +45,7 @@ func (x Uint32x16) Mul(y Uint32x16) Uint32x16 {
 }
 
 // Max computes the maximum of each pair of corresponding elements in x and y.
-func (x Uint32x16) Max(y Uint32x16) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) Max(y Uint32x16) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = max(x.data[i], y.data[i])
 	}
@@ -61,9 +54,7 @@ func (x Uint32x16) Max(y Uint32x16) Uint32x16 {
 }
 
 // Min computes the minimum of each pair of corresponding elements in x and y.
-func (x Uint32x16) Min(y Uint32x16) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) Min(y Uint32x16) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = min(x.data[i], y.data[i])
 	}
@@ -72,9 +63,7 @@ func (x Uint32x16) Min(y Uint32x16) Uint32x16 {
 }
 
 // Sub performs a fused: x - y.
-func (x Uint32x16) Sub(y Uint32x16) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) Sub(y Uint32x16) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] - y.data[i]
 	}
@@ -83,9 +72,7 @@ func (x Uint32x16) Sub(y Uint32x16) Uint32x16 {
 }
 
 // And performs a bitwise AND: x & y.
-func (x Uint32x16) And(y Uint32x16) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) And(y Uint32x16) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] & y.data[i]
 	}
@@ -94,9 +81,7 @@ func (x Uint32x16) And(y Uint32x16) Uint32x16 {
 }
 
 // AndNot performs a bitwise AND NOT: x &^ y.
-func (x Uint32x16) AndNot(y Uint32x16) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) AndNot(y Uint32x16) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] &^ y.data[i]
 	}
@@ -105,9 +90,7 @@ func (x Uint32x16) AndNot(y Uint32x16) Uint32x16 {
 }
 
 // Or performs a bitwise OR: x | y.
-func (x Uint32x16) Or(y Uint32x16) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) Or(y Uint32x16) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] | y.data[i]
 	}
@@ -116,9 +99,7 @@ func (x Uint32x16) Or(y Uint32x16) Uint32x16 {
 }
 
 // Xor performs a bitwise XOR: x ^ y.
-func (x Uint32x16) Xor(y Uint32x16) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) Xor(y Uint32x16) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] ^ y.data[i]
 	}
@@ -127,9 +108,7 @@ func (x Uint32x16) Xor(y Uint32x16) Uint32x16 {
 }
 
 // Not performs a bitwise NOT: ^x.
-func (x Uint32x16) Not() Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) Not() (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = ^x.data[i]
 	}
@@ -138,9 +117,7 @@ func (x Uint32x16) Not() Uint32x16 {
 }
 
 // ShiftLeft shifts each element of x left by count bits: x << count.
-func (x Uint32x16) ShiftLeft(count uint) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) ShiftLeft(count uint) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] << count
 	}
@@ -149,9 +126,7 @@ func (x Uint32x16) ShiftLeft(count uint) Uint32x16 {
 }
 
 // ShiftRight shifts each element of x right by count bits: x >> count (logical).
-func (x Uint32x16) ShiftRight(count uint) Uint32x16 {
-	var result Uint32x16
-
+func (x Uint32x16) ShiftRight(count uint) (result Uint32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] >> count
 	}

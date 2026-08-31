@@ -8,8 +8,7 @@ type Float32x16 struct {
 	data [float32_x16_len]float32
 }
 
-func NewFloat32x16(data []float32) Float32x16 {
-	var result Float32x16
+func NewFloat32x16(data []float32) (result Float32x16) {
 	copy(result.data[:], data)
 
 	return result
@@ -30,9 +29,7 @@ func (v Float32x16) Store(receiver []float32) {
 }
 
 // Abs returns the absolute values of the elements of x
-func (x Float32x16) Abs() Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) Abs() (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = float32(math.Abs(float64(x.data[i])))
 	}
@@ -41,9 +38,7 @@ func (x Float32x16) Abs() Float32x16 {
 }
 
 // Add performs a fused: x + y.
-func (x Float32x16) Add(y Float32x16) Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) Add(y Float32x16) (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] + y.data[i]
 	}
@@ -52,9 +47,7 @@ func (x Float32x16) Add(y Float32x16) Float32x16 {
 }
 
 // Div performs a fused: x / y.
-func (x Float32x16) Div(y Float32x16) Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) Div(y Float32x16) (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] / y.data[i]
 	}
@@ -63,9 +56,7 @@ func (x Float32x16) Div(y Float32x16) Float32x16 {
 }
 
 // Mul performs a fused: x * y.
-func (x Float32x16) Mul(y Float32x16) Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) Mul(y Float32x16) (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] * y.data[i]
 	}
@@ -74,9 +65,7 @@ func (x Float32x16) Mul(y Float32x16) Float32x16 {
 }
 
 // MulAdd performs a fused: (x * y) + z.
-func (x Float32x16) MulAdd(y, z Float32x16) Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) MulAdd(y, z Float32x16) (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = (x.data[i] * y.data[i]) + z.data[i]
 	}
@@ -85,9 +74,7 @@ func (x Float32x16) MulAdd(y, z Float32x16) Float32x16 {
 }
 
 // Max computes the maximum of each pair of corresponding elements in x and y.
-func (x Float32x16) Max(y Float32x16) Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) Max(y Float32x16) (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = max(x.data[i], y.data[i])
 	}
@@ -96,9 +83,7 @@ func (x Float32x16) Max(y Float32x16) Float32x16 {
 }
 
 // Min computes the minimum of each pair of corresponding elements in x and y.
-func (x Float32x16) Min(y Float32x16) Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) Min(y Float32x16) (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = min(x.data[i], y.data[i])
 	}
@@ -107,9 +92,7 @@ func (x Float32x16) Min(y Float32x16) Float32x16 {
 }
 
 // Neg returns the negation of the elements of x
-func (x Float32x16) Neg() Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) Neg() (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] * -1
 	}
@@ -118,9 +101,7 @@ func (x Float32x16) Neg() Float32x16 {
 }
 
 // Scale multiplies each element of x by 2 raised to the power of the floor of the corresponding element in y.
-func (x Float32x16) Scale(y Float32x16) Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) Scale(y Float32x16) (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] * float32(math.Pow(2, float64(y.data[i])))
 	}
@@ -129,9 +110,7 @@ func (x Float32x16) Scale(y Float32x16) Float32x16 {
 }
 
 // Sub performs a fused: x - y.
-func (x Float32x16) Sub(y Float32x16) Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) Sub(y Float32x16) (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = x.data[i] - y.data[i]
 	}
@@ -140,9 +119,7 @@ func (x Float32x16) Sub(y Float32x16) Float32x16 {
 }
 
 // Sqrt computes the square root of each element.
-func (x Float32x16) Sqrt() Float32x16 {
-	var result Float32x16
-
+func (x Float32x16) Sqrt() (result Float32x16) {
 	for i := range x.data {
 		result.data[i] = float32(math.Sqrt(float64(x.data[i])))
 	}

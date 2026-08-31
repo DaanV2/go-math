@@ -11,10 +11,10 @@ import "simd/archsimd"
 // mul64x2 computes the low 64 bits of a*b for each lane using 32-bit partial
 // products, since AVX2 has no packed 64-bit multiply.
 func mul64x2(a, b archsimd.Uint64x2) archsimd.Uint64x2 {
-	a32 := a.AsUint32x4()
-	b32 := b.AsUint32x4()
-	aHi := a.ShiftAllRight(32).AsUint32x4()
-	bHi := b.ShiftAllRight(32).AsUint32x4()
+	a32 := a.ReshapeToUint32s()
+	b32 := b.ReshapeToUint32s()
+	aHi := a.ShiftAllRight(32).ReshapeToUint32s()
+	bHi := b.ShiftAllRight(32).ReshapeToUint32s()
 
 	lo := a32.MulWidenEven(b32)                               // aLo * bLo
 	cross := aHi.MulWidenEven(b32).Add(a32.MulWidenEven(bHi)) // aHi*bLo + aLo*bHi

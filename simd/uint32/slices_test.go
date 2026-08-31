@@ -18,6 +18,7 @@ func makeData(n int) []uint32 {
 	for i := range data {
 		data[i] = uint32(i)*3 + 1
 	}
+
 	return data
 }
 

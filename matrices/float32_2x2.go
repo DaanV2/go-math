@@ -6,8 +6,7 @@ type Float32_2x2 struct {
 	data simdfloat32.Float32x4
 }
 
-func NewFloat32_2x2(data []float32) Float32_2x2 {
-	var result Float32_2x2
+func NewFloat32_2x2(data []float32) (result Float32_2x2) {
 	result.data = simdfloat32.NewFloat32x4(data)
 
 	return result

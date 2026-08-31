@@ -8,9 +8,7 @@ type Float64x2 struct {
 	data archsimd.Float64x2
 }
 
-func NewFloat64x2(data []float64) Float64x2 {
-	var result Float64x2
-
+func NewFloat64x2(data []float64) (result Float64x2) {
 	result.data, _ = archsimd.LoadFloat64x2Part(data)
 
 	return result

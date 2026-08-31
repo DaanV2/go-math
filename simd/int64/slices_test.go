@@ -18,6 +18,7 @@ func makeData(n int) []int64 {
 	for i := range data {
 		data[i] = int64(i)*3 - int64(n)/2
 	}
+
 	return data
 }
 
@@ -62,6 +63,7 @@ func Test_Slices_MutateOps(t *testing.T) {
 			if v < 0 {
 				return -v
 			}
+
 			return v
 		}},
 		{"AndToAll", func(s *simdint64.Slice) { s.AndToAll(6) }, func(v int64) int64 { return v & 6 }},

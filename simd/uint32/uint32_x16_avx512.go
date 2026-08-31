@@ -8,9 +8,7 @@ type Uint32x16 struct {
 	data archsimd.Uint32x16
 }
 
-func NewUint32x16(data []uint32) Uint32x16 {
-	var result Uint32x16
-
+func NewUint32x16(data []uint32) (result Uint32x16) {
 	result.data, _ = archsimd.LoadUint32x16Part(data)
 
 	return result

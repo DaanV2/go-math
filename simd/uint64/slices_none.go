@@ -313,6 +313,7 @@ func (s *Slice) Sum() uint64 {
 	for _, v := range s.data {
 		sum += v
 	}
+
 	return sum
 }
 
@@ -327,6 +328,7 @@ func (s *Slice) Min() uint64 {
 	for _, v := range s.data[1:] {
 		m = min(m, v)
 	}
+
 	return m
 }
 
@@ -341,5 +343,6 @@ func (s *Slice) Max() uint64 {
 	for _, v := range s.data[1:] {
 		m = max(m, v)
 	}
+
 	return m
 }

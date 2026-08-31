@@ -13,9 +13,7 @@ type Float64x16 struct {
 	data1 Float64x8
 }
 
-func NewFloat64x16(data []float64) Float64x16 {
-	var result Float64x16
-
+func NewFloat64x16(data []float64) (result Float64x16) {
 	result.data0 = NewFloat64x8(data)
 	if len(data) > 8 { // Read atleast 4 points, so there should be more
 		result.data1 = NewFloat64x8(data[(float64_x16_len / 2):])

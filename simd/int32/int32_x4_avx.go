@@ -8,9 +8,7 @@ type Int32x4 struct {
 	data archsimd.Int32x4
 }
 
-func NewInt32x4(data []int32) Int32x4 {
-	var result Int32x4
-
+func NewInt32x4(data []int32) (result Int32x4) {
 	result.data, _ = archsimd.LoadInt32x4Part(data)
 
 	return result

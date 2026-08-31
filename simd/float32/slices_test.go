@@ -19,6 +19,7 @@ func makeData(n int) []float32 {
 	for i := range data {
 		data[i] = float32(i)*1.5 - float32(n)/2
 	}
+
 	return data
 }
 
@@ -188,9 +189,9 @@ func Test_Slices_NilAndEmpty(t *testing.T) {
 		nilSlice.MaxWith([]float32{1})
 	})
 
-	assert.Equal(t, float32(0), nilSlice.Sum())
-	assert.Equal(t, float32(0), nilSlice.Min())
-	assert.Equal(t, float32(0), nilSlice.Max())
+	assert.InEpsilon(t, float32(0), nilSlice.Sum(), 0)
+	assert.InEpsilon(t, float32(0), nilSlice.Min(), 0)
+	assert.InEpsilon(t, float32(0), nilSlice.Max(), 0)
 
 	empty := simdfloat32.NewSlice([]float32{})
 	assert.Equal(t, float32(0), empty.Sum())

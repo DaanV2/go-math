@@ -7,9 +7,7 @@ type Float32_4x4 struct {
 	data1 simdfloat32.Float32x8
 }
 
-func NewFloat32_4x4(data []float32) Float32_4x4 {
-	var result Float32_4x4
-
+func NewFloat32_4x4(data []float32) (result Float32_4x4) {
 	if len(data) > 8 {
 		result.data0 = simdfloat32.NewFloat32x8(data[:8])
 		result.data1 = simdfloat32.NewFloat32x8(data[8:])

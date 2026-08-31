@@ -9,9 +9,7 @@ type Uint64x16 struct {
 	data1 Uint64x8
 }
 
-func NewUint64x16(data []uint64) Uint64x16 {
-	var result Uint64x16
-
+func NewUint64x16(data []uint64) (result Uint64x16) {
 	result.data0 = NewUint64x8(data)
 	if len(data) > 8 { // Read atleast 8 points, so there should be more
 		result.data1 = NewUint64x8(data[(uint64_x16_len / 2):])
