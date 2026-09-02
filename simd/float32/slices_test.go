@@ -189,9 +189,9 @@ func Test_Slices_NilAndEmpty(t *testing.T) {
 		nilSlice.MaxWith([]float32{1})
 	})
 
-	assert.InEpsilon(t, float32(0), nilSlice.Sum(), 0)
-	assert.InEpsilon(t, float32(0), nilSlice.Min(), 0)
-	assert.InEpsilon(t, float32(0), nilSlice.Max(), 0)
+	assert.Equal(t, float32(0), nilSlice.Sum())
+	assert.Equal(t, float32(0), nilSlice.Min())
+	assert.Equal(t, float32(0), nilSlice.Max())
 
 	empty := simdfloat32.NewSlice([]float32{})
 	assert.Equal(t, float32(0), empty.Sum())
